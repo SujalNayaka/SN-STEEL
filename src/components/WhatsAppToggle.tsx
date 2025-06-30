@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MessageCircle, X, Phone, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -9,7 +9,8 @@ const WhatsAppToggle = () => {
     {
       icon: MessageCircle,
       label: 'WhatsApp Chat',
-      action: () => window.open('https://wa.me/916363566216?text=Hello! I am interested in your steel products. Please provide more information.', '_blank'),
+      // Added rel="noopener noreferrer" for security when opening new tabs
+      action: () => window.open('https://wa.me/916363566216?text=Hello! I am interested in your steel products. Please provide more information.', '_blank', 'noopener noreferrer'),
       color: 'from-green-500 to-green-600',
       description: 'Chat with us instantly'
     },
@@ -33,7 +34,7 @@ const WhatsAppToggle = () => {
     <>
       {/* Main WhatsApp Button */}
       <motion.div
-        className="fixed bottom-6 right-6 z-50"
+        className="fixed bottom-6 right-6 z-50" // This remains the same, anchors the group at the very bottom
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 2, type: "spring", stiffness: 260, damping: 20 }}
@@ -80,7 +81,7 @@ const WhatsAppToggle = () => {
               </motion.div>
             )}
           </AnimatePresence>
-          
+
           {/* Pulse animation */}
           {!isOpen && (
             <motion.div
@@ -103,7 +104,9 @@ const WhatsAppToggle = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-24 right-6 z-40 space-y-3"
+            // ***** MODIFICATION HERE *****
+            // Increased 'bottom' significantly to place the menu above both buttons.
+            className="fixed bottom-44 right-6 z-40 space-y-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
@@ -146,7 +149,7 @@ const WhatsAppToggle = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 z-30"
+            className="fixed inset-0 z-30" // Backdrop should be behind the buttons and menu
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
